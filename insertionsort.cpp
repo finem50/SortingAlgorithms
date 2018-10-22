@@ -40,6 +40,7 @@ using namespace std;
 *Specify path for data to be sorted, located in /sortingalgorithms/data/
 */
 int main(){
+  linkedList list;
   string inFile, outFile;
   ifstream in_s;
   ofstream out_s;
@@ -53,27 +54,31 @@ int main(){
   cin >> outFile;
 
   in_s.open(inFile.c_str());
-  if(in_s.fail()){
+  //If input file name is invalid, re-prompt the user to enter a correct one
+  while(in_s.fail()){
 
-    cout << "Input file opening failed." << endl;
-    exit(1); //If the file could not be opened and read, exit
+    in_s.clear();
+    cout << "Input file opening failed, please try again." << endl;
+    cin >> inFile;
+    in_s.open(inFile.c_str());
   }
 
   out_s.open(outFile.c_str());
-  if(out_s.fail()){
+  //If output file name is invalid, re-prompt the user to enter a correct one
+  while(out_s.fail()){
 
-    cout << "Output file opening failed." << endl;
-    exit(1);
+    out_s.clear();
+    cout << "Output file opening failed, please try again." << endl;
+    cin >> outFile;
+    out_s.open(outFile.c_str());
   }
-
-  linkedList list;
 
   while(in_s >> a){
-    list.insertHead(a);
 
+    list.insertHead(a);
   }
 
-  list.printList(out_s);
+  list.printList(out_s); //Feed the linked list into the output file
 
   in_s.close();
   out_s.close();
