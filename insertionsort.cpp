@@ -29,8 +29,8 @@ public:
     tail = NULL;
   }
 
-  void insertHead(float value);
-  void display();
+  void insertHead(long value);
+  void printList(std::ofstream& os);
   void insertionSort();
 };
 
@@ -43,6 +43,7 @@ int main(){
   string inFile, outFile;
   ifstream in_s;
   ofstream out_s;
+  long a;
 
   cout << "Enter the name of the file to be sorted." << endl;
   cout << "Please note that any d1000+ files are located in the data folder : " << endl;
@@ -67,12 +68,12 @@ int main(){
 
   linkedList list;
 
-  for(int i = 0; i < 11; i++){
+  while(in_s >> a){
+    list.insertHead(a);
 
-    list.insertHead(i);
   }
 
-  list.display();
+  list.printList(out_s);
 
   in_s.close();
   out_s.close();
@@ -81,7 +82,7 @@ int main(){
 }
 
 
-void linkedList::insertHead(float value){
+void linkedList::insertHead(long value){
 
   Node *temp = new Node;
   temp -> data = value;
@@ -89,13 +90,13 @@ void linkedList::insertHead(float value){
   head = temp;
 }
 
-void linkedList::display(){
+void linkedList::printList(std::ofstream& os){
 
   Node *temp = new Node;
   temp = head;
   while (temp != NULL){
 
-    cout << temp -> data << "\n";
+    os << temp -> data << "\n";
     temp = temp -> link;
   }
 }
