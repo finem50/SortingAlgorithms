@@ -11,6 +11,8 @@ in the order that matches the file, and then sort that linked list.
 #include <fstream>
 #include <string>
 
+using namespace std;
+
 struct Node{
 
   long data;
@@ -34,24 +36,35 @@ public:
   void insertionSort();
 };
 
-using namespace std;
 
 /*TODO:
-*Specify path for data to be sorted, located in /sortingalgorithms/data/
+*Specify path for data to be sorted, located in /sortingalgorithms/data/ (DONE)
+*Read file into linked list in order
 */
-int main(){
+
+typedef Node* ptr;
+
+int main(int argc, char** argv){
   linkedList list;
-  string inFile, outFile;
+  string inFile = "", outFile = "";
   ifstream in_s;
   ofstream out_s;
   long a;
 
-  cout << "Enter the name of the file to be sorted." << endl;
-  cout << "Please note that any d1000+ files are located in the data folder : " << endl;
-  cin >> inFile;
+  if(argc == 3){
 
-  cout << "Enter the name of the desired sorted output file:" << endl;
-  cin >> outFile;
+    inFile = argv[1];
+    outFile = argv[2];
+  }else{
+
+    cout << "Usage: ./cppfile InputFile OutputFile\n";
+    return 1;
+  }
+
+  cout << "File to be sorted is:\t" << inFile << endl;
+
+
+  cout << "Output file name is:\t " << outFile << endl;
 
   in_s.open(inFile.c_str());
   //If input file name is invalid, re-prompt the user to enter a correct one
@@ -78,6 +91,7 @@ int main(){
     list.insertHead(a);
   }
 
+  list.insertionSort();
   list.printList(out_s); //Feed the linked list into the output file
 
   in_s.close();
@@ -95,6 +109,7 @@ void linkedList::insertHead(long value){
   head = temp;
 }
 
+
 void linkedList::printList(std::ofstream& os){
 
   Node *temp = new Node;
@@ -103,5 +118,45 @@ void linkedList::printList(std::ofstream& os){
 
     os << temp -> data << "\n";
     temp = temp -> link;
+  }
+}
+
+void linkedList::insertionSort(){
+  Node *temp1 = new Node;
+  Node *temp2 = new Node;
+
+  if((head == NULL || head -> link == NULL)){
+
+    return;
+  }
+  temp1 = head -> link;
+  while(temp1 != NULL){
+
+    float sec_data = temp1 -> data;
+    float found = 0;
+    temp2 = head;
+
+    while(temp2 != temp1){
+
+      if(temp2 -> data > temp1 -> data && found == 0){
+
+        sec_data = temp2 -> data;
+        temp2 -> data = temp1 -> data;
+        found = 1;
+        temp2 = temp2 -> link;
+      }else{
+
+        if(found == 1){
+          float temp = sec_data;
+          sec_data = temp2 -> data;
+          temp2 -> data = temp;
+        }
+
+        temp2 = temp2 -> link;
+      }
+    }
+
+    temp2 -> data = sec_data;
+    temp1 = temp1 -> link;
   }
 }
