@@ -68,7 +68,7 @@ int main(int argc, char** argv){
   while(in_s.fail()){
 
     in_s.clear();
-    cout << "Input file opening failed, please try again." << endl;
+    cout << "Input file opening failed, please retry input file name." << endl;
     cin >> inFile;
     in_s.open(inFile.c_str());
   }
@@ -78,7 +78,7 @@ int main(int argc, char** argv){
   while(out_s.fail()){
 
     out_s.clear();
-    cout << "Output file opening failed, please try again." << endl;
+    cout << "Output file opening failed, please retry output file name." << endl;
     cin >> outFile;
     out_s.open(outFile.c_str());
   }
@@ -129,7 +129,7 @@ void linkedList::insertionSort(){
   temp1 = head -> link;
   while(temp1 != NULL){
 
-    float sec_data = temp1 -> data;
+    float data2 = temp1 -> data;
     float found = 0;
     temp2 = head;
 
@@ -137,15 +137,15 @@ void linkedList::insertionSort(){
 
       if(temp2 -> data > temp1 -> data && found == 0){
 
-        sec_data = temp2 -> data;
+        data2 = temp2 -> data;
         temp2 -> data = temp1 -> data;
         found = 1;
         temp2 = temp2 -> link;
       }else{
 
         if(found == 1){
-          float temp = sec_data;
-          sec_data = temp2 -> data;
+          float temp = data2;
+          data2 = temp2 -> data;
           temp2 -> data = temp;
         }
 
@@ -153,7 +153,7 @@ void linkedList::insertionSort(){
       }
     }
 
-    temp2 -> data = sec_data;
+    temp2 -> data = data2;
     temp1 = temp1 -> link;
   }
 }
