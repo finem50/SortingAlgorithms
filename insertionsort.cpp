@@ -37,11 +37,6 @@ public:
 };
 
 
-/*TODO:
-*Specify path for data to be sorted, located in /sortingalgorithms/data/ (DONE)
-*Read file into linked list in order
-*/
-
 typedef Node* ptr;
 
 int main(int argc, char** argv){
@@ -51,6 +46,8 @@ int main(int argc, char** argv){
   ofstream out_s;
   long a;
 
+  //Take in command line arguments for input file and output file
+  //Argument structure should be: ./cppfile inputFile outputFile
   if(argc == 3){
 
     inFile = argv[1];
@@ -87,7 +84,7 @@ int main(int argc, char** argv){
   }
 
   while(in_s >> a){
-
+    //Insert input file date into linked list
     list.insertHead(a);
   }
 
