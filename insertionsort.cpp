@@ -59,8 +59,6 @@ int main(int argc, char** argv){
   }
 
   cout << "File to be sorted is:\t" << inFile << endl;
-
-
   cout << "Output file name is:\t " << outFile << endl;
 
   in_s.open(inFile.c_str());
@@ -119,7 +117,7 @@ void linkedList::printList(std::ofstream& os){
 }
 
 void linkedList::insertionSort(){
-  
+
   Node *temp1 = new Node;
   Node *temp2 = new Node;
 
