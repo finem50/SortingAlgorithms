@@ -119,6 +119,7 @@ void linkedList::printList(std::ofstream& os){
 }
 
 void linkedList::insertionSort(){
+  
   Node *temp1 = new Node;
   Node *temp2 = new Node;
 
