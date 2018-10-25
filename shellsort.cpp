@@ -7,8 +7,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using namespace std;
+
+void shellSort(vector<float> data);
 
 int main(int argc, char** argv){
 
@@ -16,6 +19,7 @@ int main(int argc, char** argv){
   ifstream in_s;
   ofstream out_s;
   long a;
+  std::vector<float> inVec;
 
   //Take in command line arguments for input file and output file
   //Argument structure should be: ./cppfile inputFile outputFile
@@ -30,8 +34,6 @@ int main(int argc, char** argv){
   }
 
   cout << "File to be sorted is:\t" << inFile << endl;
-
-
   cout << "Output file name is:\t " << outFile << endl;
 
   in_s.open(inFile.c_str());
@@ -54,5 +56,44 @@ int main(int argc, char** argv){
     out_s.open(outFile.c_str());
   }
 
+  while(in_s >> a){
+
+    inVec.push_back(a);
+  }
+
+  shellSort(inVec);
+
+  for(int i = 0; i < inVec.size(); i++){
+
+    out_s << inVec[i] << "\n";
+  }
+
+  in_s.close();
+  out_s.close();
   return 0;
+}
+
+void shellSort(vector<float> data){
+
+    int i, j, k, temp;
+    int n = data.size();
+
+    for(i = n/2; i > 0; i = i/2){
+
+      for(j = i; j < n; j++){
+
+        for(k = j - i; k >= 0; k = k - i){
+
+          if(data[k + i] >= data[k])
+          break;
+
+          else{
+
+            temp = data[k];
+            data[k] = data[k + i];
+            data[k + i] = temp;
+          }
+        }
+      }
+    }
 }
