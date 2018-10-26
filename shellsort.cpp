@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void shellSort(vector<float> data);
+static void shellSort(vector<long> &data);
 
 int main(int argc, char** argv){
 
@@ -19,7 +19,7 @@ int main(int argc, char** argv){
   ifstream in_s;
   ofstream out_s;
   long a;
-  std::vector<float> inVec;
+  std::vector<long> inVec;
 
   //Take in command line arguments for input file and output file
   //Argument structure should be: ./cppfile inputFile outputFile
@@ -56,6 +56,7 @@ int main(int argc, char** argv){
     out_s.open(outFile.c_str());
   }
 
+  //Insert all elements from input file into the vector
   while(in_s >> a){
 
     inVec.push_back(a);
@@ -63,9 +64,10 @@ int main(int argc, char** argv){
 
   shellSort(inVec);
 
+  //Output all elements from vector, from index 0 -> n, to output file
   for(int i = 0; i < inVec.size(); i++){
 
-    out_s << inVec[i] << "\n";
+    out_s << inVec.at(i) << endl;
   }
 
   in_s.close();
@@ -73,27 +75,28 @@ int main(int argc, char** argv){
   return 0;
 }
 
-void shellSort(vector<float> data){
+static void shellSort(vector<long> &data){
 
-    int i, j, k, temp;
-    int n = data.size();
+    int gap, i, j, n, temp;
 
-    for(i = n/2; i > 0; i = i/2){
+    n = data.size();
+    //Using n / 2 rather than Hibbard's increments
+    for(gap = n / 2; gap > 0; gap = gap / 2){
 
-      for(j = i; j < n; j++){
+      for(i = gap; i < n; i++){
 
-        for(k = j - i; k >= 0; k = k - i){
+        for(j = i - gap; j >= 0; j = j - gap){
 
-          if(data[k + i] >= data[k])
-          break;
+          if(data[j + gap] >= data[j]){
 
-          else{
+            break;
+          }else{
 
-            temp = data[k];
-            data[k] = data[k + i];
-            data[k + i] = temp;
+            temp = data[j];
+            data[j] = data[j + gap];
+            data[j + gap] = temp;
           }
         }
       }
     }
-}
+  }
