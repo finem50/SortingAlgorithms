@@ -1,5 +1,8 @@
 /** Requirements:
--
+-Use bottom up merge sort algorithm
+-Use vectors or arrays to hold data
+-NOT required to use objects
+-Need to accept command line arguments
 **/
 
 #include <iostream>
@@ -9,7 +12,7 @@
 
 using namespace std;
 
-static void shellSort(vector<long> &data);
+static void mergeSort(vector<long> &data);
 
 int main(int argc, char** argv){
 
@@ -54,7 +57,27 @@ int main(int argc, char** argv){
     out_s.open(outFile.c_str());
   }
 
+  //Insert all elements from input file into the vector
+  while(in_s >> a){
 
+    inVec.push_back(a);
+  }
 
   return 0;
+}
+
+static void mergeSort(vector<long> &data){
+
+  int n, i, temp;
+
+  n = data.size();
+
+  if(n == 0 || n == 1){
+
+    cout << "Not enough elements to sort." << endl;
+  }else{
+
+
+    
+  }
 }
