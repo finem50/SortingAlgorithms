@@ -80,6 +80,11 @@ static void shellSort(vector<long> &data){
     int gap, i, j, n, temp;
 
     n = data.size();
+
+    if(n == 0 || n == 1){
+
+      cout << "Not enough elements to sort" << endl;
+    }else{
     //Using n / 2 rather than Hibbard's increments
     for(gap = n / 2; gap > 0; gap = gap / 2){
 
@@ -95,6 +100,7 @@ static void shellSort(vector<long> &data){
             temp = data[j];
             data[j] = data[j + gap];
             data[j + gap] = temp;
+            }
           }
         }
       }
