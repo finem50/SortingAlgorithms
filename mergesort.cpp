@@ -12,7 +12,8 @@
 
 using namespace std;
 
-static void mergeSort(vector<long> &data);
+static void mergeSort(vector<long> &data, vector<long> temp);
+static void merge(vector<long> &data, vector<long> temp, int size, int left, int mid);
 
 int main(int argc, char** argv){
 
@@ -21,6 +22,7 @@ int main(int argc, char** argv){
   ofstream out_s;
   long a;
   std::vector<long> inVec;
+  std::vector<long> temp;
 
   //Take in command line arguments for input file and output file
   //Argument structure should be: ./cppfile inputFile outputFile
@@ -63,21 +65,85 @@ int main(int argc, char** argv){
     inVec.push_back(a);
   }
 
+  mergeSort(inVec, temp);
+
+  //Output all elements from vector, from index 0 -> n, to output file
+  for(int i = 0; i < inVec.size(); i++){
+
+    out_s << inVec.at(i) << endl;
+  }
+
   return 0;
 }
 
-static void mergeSort(vector<long> &data){
+static void mergeSort(vector<long> &data, vector<long> temp){
 
-  int n, i, temp;
-
-  n = data.size();
+  int width;
+  int n = data.size();
 
   if(n == 0 || n == 1){
 
-    cout << "Not enough elements to sort." << endl;
-  }else{
-
-
-    
+    return;
   }
+
+  for(width = 1; width < n; width = 2 * width){
+
+    int i;
+
+    for(i = 0; i < n; i = i + 2 * width){
+
+      int left, mid;
+
+      left = i;
+      mid = i + width;
+
+      merge(data, temp, n, left, mid);
+    }
+  }
+
+}
+
+static void merge(vector<long> &data, vector<long> temp, int size, int left, int mid){
+
+  int i, j, k;
+  int right = mid + mid - left;
+
+  //Setting the size of vector 'temp' to the size of vector 'data'
+  temp.resize(data.size());
+  if(right > size){
+
+    right = size;
+  }
+
+  i = left;
+  j = mid;
+  k = left;
+
+  while(i < mid && j < right){
+
+      if(data[i] < data[j]){
+
+        temp[k++] = data[i++];
+      }else{
+
+        temp[k++] = data[j++];
+      }
+
+  }
+
+  while(i < mid){
+
+    temp[k++] = data[i++];
+  }
+
+  while(j < right){
+
+    temp[k++] = data[j++];
+  }
+
+  for(i = left; i < right; ++i){
+
+    data[i] = temp[i];
+  }
+
 }
